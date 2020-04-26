@@ -4,7 +4,8 @@ import { NgModule, Injector } from '@angular/core';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformLocation, APP_BASE_HREF } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformLocation, APP_BASE_HREF, DatePipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,11 +17,10 @@ import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformL
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [
-  
-  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
