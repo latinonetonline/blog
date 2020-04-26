@@ -1,15 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { PostsService } from 'src/services/postsServices';
+import { Post } from 'src/app/shared/models/Post';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common'
+
 
 @Component({
     selector: 'app-post',
     templateUrl: './post.component.html',
-    providers: [Location, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
 export class PostComponent implements OnInit {
-    constructor(private router: Router) { }
+    constructor(private route: ActivatedRoute, private postService: PostsService, private sanitizer: DomSanitizer, private datepipe: DatePipe
+    ) { }
+
+    private slug: string;
+    isLoading: boolean = true;
+    post: Post;
+    htmlBody: SafeHtml;
+    fullDate: string;
 
     ngOnInit() {
+        this.slug = this.route.snapshot.paramMap.get('id');
+
+        this.postService.getPost(this.slug).subscribe((data: Post) => {
+            this.post = data;
+            this.htmlBody = this.sanitizer.bypassSecurityTrustHtml(this.post.Html);
+            this.fullDate = this.datepipe.transform(this.post.Date, 'EEEE, MMMM d, y');
+            this.isLoading = false;
+        })
     }
 }

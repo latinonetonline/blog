@@ -1,3 +1,15 @@
 body {
     padding-top: 56px;
-  }
+}
+
+.post-body>p>img {
+    max-width: 100% !important;
+}
+
+.bg-dark {
+    background: #5c2d91 !important;
+}
+
+#container {
+    margin-top: 60px
+}
