@@ -3,14 +3,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/shared/models/Post';
+import { Page } from 'src/app/shared/models/Page';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PostsService {
+export class BlogService {
     constructor(private httpClient: HttpClient) { }
 
     public getPost(slug: string) {
         return this.httpClient.get<Post>(`https://raw.githubusercontent.com/latinonetonline/blogdb/master/article/${slug}`);
     }
+
+    public getPage(nroPage: number) {
+        return this.httpClient.get<Page>(`https://us-central1-latino-net-online.cloudfunctions.net/addMessage?page=${nroPage}&recPerPage=3`);
+    }
+
+    
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { PostsService } from 'src/services/postsServices';
+import { BlogService } from 'src/services/blogServices';
 import { Post } from 'src/app/shared/models/Post';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common'
@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common'
     providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
 export class PostComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private postService: PostsService, private sanitizer: DomSanitizer, private datepipe: DatePipe
+    constructor(private route: ActivatedRoute, private blogService: BlogService, private sanitizer: DomSanitizer, private datepipe: DatePipe
     ) { }
 
     private slug: string;
@@ -25,7 +25,7 @@ export class PostComponent implements OnInit {
     ngOnInit() {
         this.slug = this.route.snapshot.paramMap.get('id');
 
-        this.postService.getPost(this.slug).subscribe((data: Post) => {
+        this.blogService.getPost(this.slug).subscribe((data: Post) => {
             this.post = data;
             this.htmlBody = this.sanitizer.bypassSecurityTrustHtml(this.post.Html);
             this.fullDate = this.datepipe.transform(this.post.Date, 'EEEE, MMMM d, y');
