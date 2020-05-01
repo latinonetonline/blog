@@ -6,9 +6,10 @@ import { Component, AfterViewInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
+  constructor(private window: Window) { }
   title = 'blog';
   ngAfterViewInit() {
-    window.twttr.widgets.load();
+    this.window["twttr"].widgets.load();
   }
 
 }
