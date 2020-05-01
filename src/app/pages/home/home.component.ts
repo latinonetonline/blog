@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     }
 
     onChangePage = (nroPage: number) => {
-        window.location.href = window.location.origin + '#' + nroPage
+        window.location.href = window.location.origin + window.location.pathname + '#' + nroPage
         window.location.reload();
     }
 }
