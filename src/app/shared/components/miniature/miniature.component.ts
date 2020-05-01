@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Post } from '../../models/Post';
 
 @Component({
     selector: 'miniature',
@@ -7,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class MiniatureComponent implements OnInit {
     constructor() { }
 
+    @Input()
+    post: Post;
+
     ngOnInit() {
     }
+
+    getPostLink = () => "#posts/" + this.post.Slug
 }

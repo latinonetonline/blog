@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: Window, useValue: window }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
