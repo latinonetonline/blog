@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/services/blogServices';
 import { Page } from 'src/app/shared/models/Page';
 import { Post } from 'src/app/shared/models/Post';
+import { strict } from 'assert';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -19,12 +21,13 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         let routeNroPage = this.route.snapshot.paramMap.get('page');
+        let routeSearch = this.route.snapshot.queryParamMap.get('search');
 
         if (routeNroPage && parseInt(routeNroPage) > 0) {
             this.nroPage = parseInt(routeNroPage)
         }
 
-        this.blogService.getPage(this.nroPage).subscribe((data: Page) => {
+        this.blogService.getPage(this.nroPage, routeSearch).subscribe((data: Page) => {
             this.page = data;
 
             for (let index = 0; index < this.page.slugs.length; index++) {
@@ -42,7 +45,7 @@ export class HomeComponent implements OnInit {
 
     getPaginationNumbers = () => {
         if (this.page.totalPages == 1)
-            return [1, 2];
+            return [1];
 
         if (this.page.totalPages < 3)
             return [1, 2];
@@ -61,7 +64,14 @@ export class HomeComponent implements OnInit {
     }
 
     onChangePage = (nroPage: number) => {
-        window.location.href = window.location.origin + window.location.pathname + '#' + nroPage
+
+        let url = window.location.origin + window.location.pathname + '#' + nroPage
+        
+        if (this.route.snapshot.queryParamMap.has('search')) {
+            url += `?search=${this.route.snapshot.queryParamMap.get('search')}`;
+        }
+        window.location.href = url;
+
         window.location.reload();
     }
 }
