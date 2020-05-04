@@ -14,5 +14,18 @@ export class MiniatureComponent implements OnInit {
     ngOnInit() {
     }
 
-    getPostLink = () => "#posts/" + this.post.Slug
+    getPostLink = () => "#posts/" + this.getSlug()
+
+    private getSlug = () => encodeURI(this.post.Title.trim()
+    .replace(/:/g, '')
+    .replace(/#/g, '')
+    .split("+").join("")
+    .replace(/</g, '')
+    .replace(/>/g, '')
+    .split("?").join("")
+    .split("|").join("")
+    .split("/").join("")
+    .split("\\").join("")
+    .replace(/#/g, '')
+    .replace(/ /g, '-'));
 }
