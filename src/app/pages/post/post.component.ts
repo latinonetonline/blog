@@ -23,13 +23,21 @@ export class PostComponent implements OnInit {
     fullDate: string;
 
     ngOnInit() {
-        this.slug = this.route.snapshot.paramMap.get('id');
+        this.slug = encodeURI(this.route.snapshot.paramMap.get('id').toLowerCase());
 
         this.blogService.getPost(this.slug).subscribe((data: Post) => {
             this.post = data;
             this.htmlBody = this.sanitizer.bypassSecurityTrustHtml(this.post.Html);
-            this.fullDate = this.datepipe.transform(this.post.Date, 'EEEE, MMMM d, y');
+            let day = this.datepipe.transform(this.post.Date, 'EEEE', 'UTC');
+            let daynro = this.datepipe.transform(this.post.Date, 'd', 'UTC');
+            let month = this.datepipe.transform(this.post.Date, 'MMMM', 'UTC');
+            let year = this.datepipe.transform(this.post.Date, 'y', 'UTC');
+            this.fullDate = `${this.MaysPrimera(day)} ${daynro} de ${this.MaysPrimera(month)} ${year}`
             this.isLoading = false;
         })
     }
+
+    private MaysPrimera(string: string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 }
