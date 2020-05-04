@@ -15,9 +15,13 @@ export class BlogService {
         return this.httpClient.get<Post>(`https://raw.githubusercontent.com/latinonetonline/blogdb/master/article/${slug}`);
     }
 
-    public getPage(nroPage: number) {
-        return this.httpClient.get<Page>(`https://us-central1-latino-net-online.cloudfunctions.net/addMessage?page=${nroPage}&recPerPage=3`);
-    }
+    public getPage(nroPage: number, search: string) {
+        let url = `https://us-central1-latino-net-online.cloudfunctions.net/addMessage?page=${nroPage}&recPerPage=3`;
 
-    
+        if (search && search.length > 0) {
+            url += `&search=${search}`;
+        }
+        
+        return this.httpClient.get<Page>(url);
+    }
 }

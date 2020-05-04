@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { MiniatureComponent } from './shared/components/miniature/miniature.component';
 import { PostComponent } from './pages/post/post.component';
+import { SearchWidgetComponent } from './shared/components/searchWidget/searchWidget.component';
 
 const routes: Routes = [
 
@@ -20,4 +21,4 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [HomeComponent, PostComponent,
-  MiniatureComponent];
+  MiniatureComponent, SearchWidgetComponent];
