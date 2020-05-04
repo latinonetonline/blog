@@ -3,16 +3,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/services/blogServices';
 import { Page } from 'src/app/shared/models/Page';
 import { Post } from 'src/app/shared/models/Post';
-import { strict } from 'assert';
-import { stringify } from 'querystring';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private blogService: BlogService) { }
+    constructor(private titleService: Title, private route: ActivatedRoute, private blogService: BlogService) 
+    { 
+        this.titleService.setTitle(`Latino .NET Online Blog`);
+    }
 
     page: Page
     posts: Post[] = []
