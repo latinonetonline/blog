@@ -17,15 +17,27 @@ export class MiniatureComponent implements OnInit {
     getPostLink = () => "#posts/" + this.getSlug()
 
     private getSlug = () => encodeURI(this.post.Title.trim()
+    .replace(/ - /g, ' ')
+    .replace(/-/g, '')
+    .replace(/ : /g, ' ')
     .replace(/:/g, '')
+
+    .replace(/ # /g, ' ')
     .replace(/#/g, '')
+    .split(" + ").join(" ")
     .split("+").join("")
+    .replace(/ < /g, ' ')
     .replace(/</g, '')
+    .replace(/ > /g, ' ')
     .replace(/>/g, '')
+    .split(" ? ").join(" ")
     .split("?").join("")
+    .split(" | ").join(" ")
     .split("|").join("")
+    .split(" / ").join(" ")
     .split("/").join("")
+    .split(" \\ ").join(" ")
     .split("\\").join("")
-    .replace(/#/g, '')
+    .split("--").join(" ")
     .replace(/ /g, '-'));
 }
