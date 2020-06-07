@@ -16,7 +16,7 @@ export class BlogService {
     }
 
     public getPage(nroPage: number, search: string) {
-        let url = `https://us-central1-latino-net-online.cloudfunctions.net/addMessage?page=${nroPage}&recPerPage=3`;
+        let url = `https://blog.latinonetonline.workers.dev/articles?page=${nroPage}&recPerPage=3`;
 
         if (search && search.length > 0) {
             url += `&search=${search}`;
